@@ -14,3 +14,6 @@ carbone/
 # Hors projet
 NBE-E-Commerce-IA.ipynb
 .DS_Store
+
+# Fichiers de verrouillage Office
+~$*

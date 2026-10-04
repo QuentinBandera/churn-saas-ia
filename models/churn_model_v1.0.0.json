@@ -1,7 +1,7 @@
 {
   "model_name": "churn_saas_logistic",
   "version": "1.0.0",
-  "trained_at": "2026-10-04T16:59:41",
+  "trained_at": "2026-10-04T17:53:05",
   "sklearn_version": "1.9.1",
   "algorithm": "LogisticRegression (L2)",
   "hyperparameters": {
