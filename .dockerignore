@@ -1,0 +1,12 @@
+.venv/
+mlruns/
+mlflow.db
+carbone/
+data/
+*.ipynb
+*.pdf
+*.md
+churn_saas_complet.csv
+churn_saas_echantillon.csv
+**/__pycache__/
+.git/

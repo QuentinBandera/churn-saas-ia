@@ -1,0 +1,16 @@
+# Environnement Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Produits par l'exécution du notebook (recréés à chaque exécution)
+data/
+mlruns/
+mlflow.db
+carbone/
+
+# Hors projet
+NBE-E-Commerce-IA.ipynb
+.DS_Store

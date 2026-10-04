@@ -1,0 +1,67 @@
+{
+  "model_name": "churn_saas_logistic",
+  "version": "1.0.0",
+  "trained_at": "2026-10-04T16:59:41",
+  "sklearn_version": "1.9.1",
+  "algorithm": "LogisticRegression (L2)",
+  "hyperparameters": {
+    "C": 0.03,
+    "class_weight": null
+  },
+  "features_numeric": [
+    "anciennete_mois",
+    "sieges_souscrits",
+    "utilisateurs_actifs",
+    "taux_adoption_pct",
+    "connexions_30j",
+    "heures_usage_30j",
+    "fonctionnalites_utilisees",
+    "nb_integrations",
+    "derniere_connexion_jours",
+    "tickets_support_90j",
+    "delai_reponse_support_h",
+    "csat",
+    "retards_paiement_12m",
+    "log_mrr",
+    "ratio_fonctionnalites",
+    "heures_par_utilisateur",
+    "ecart_sla_support_h",
+    "sieges_inactifs"
+  ],
+  "features_categorical": [
+    "plan",
+    "taille_entreprise",
+    "secteur",
+    "pays"
+  ],
+  "excluded_features": {
+    "client_id": "identifiant (aucun sens prédictif) ; remplacé par un pseudonyme dans Gold",
+    "sante_compte_fin_periode": "FUITE : mesurée en fin de période, après la décision",
+    "commentaire_csm": "fuite partielle probable + texte libre (RGPD) + 55 % manquant",
+    "valeur_vie_client_eur": "cible secondaire, connue a posteriori",
+    "date_souscription": "redondante avec anciennete_mois (photo unique) ; risque d'effet calendaire",
+    "fonctionnalites_total / catalogue": "déterminés par le plan (redondants) ; utilisés via les ratios",
+    "revenu_mensuel_recurrent_eur": "remplacé par log_mrr",
+    "couleur_theme_interface": "LEURRE : aucun lien avec le churn (χ², permutation)",
+    "code_datacenter": "LEURRE : aucun lien avec le churn (χ², permutation)",
+    "groupe_experimentation": "LEURRE : aucun lien avec le churn (χ², permutation)",
+    "jour_souscription": "LEURRE : aucun lien avec le churn (χ², permutation)"
+  },
+  "decision_threshold": 0.18,
+  "cost_assumptions_eur": {
+    "false_positive": 300,
+    "false_negative": 1500
+  },
+  "train_size": 4000,
+  "train_churn_rate": 0.28,
+  "test_metrics": {
+    "ROC-AUC": 0.882,
+    "PR-AUC": 0.7624,
+    "Brier": 0.1206,
+    "Rappel @ 0.18": 0.8857,
+    "Précision @ 0.18": 0.531,
+    "F1 @ 0.18": 0.664,
+    "% comptes signalés": 0.467
+  },
+  "sha256": "51184e624234a2aa34a79dae13f0e36cbbcdb2a24341f9210ad92fd185c139f8"
+}

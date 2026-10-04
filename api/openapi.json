@@ -1,0 +1,448 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Churn scoring API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Health Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ready": {
+      "get": {
+        "summary": "Ready",
+        "operationId": "ready_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Ready Ready Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/score": {
+      "post": {
+        "summary": "Score",
+        "operationId": "score_score_post",
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Api-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScoreRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScoreResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Account": {
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "title": "Client Id",
+            "examples": [
+              "CLI-000123"
+            ]
+          },
+          "plan": {
+            "type": "string",
+            "title": "Plan",
+            "examples": [
+              "Pro"
+            ]
+          },
+          "secteur": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Secteur"
+          },
+          "pays": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pays"
+          },
+          "taille_entreprise": {
+            "type": "string",
+            "title": "Taille Entreprise",
+            "examples": [
+              "PME"
+            ]
+          },
+          "anciennete_mois": {
+            "type": "integer",
+            "maximum": 240.0,
+            "minimum": 0.0,
+            "title": "Anciennete Mois"
+          },
+          "sieges_souscrits": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Sieges Souscrits"
+          },
+          "utilisateurs_actifs": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Utilisateurs Actifs"
+          },
+          "taux_adoption_pct": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Taux Adoption Pct"
+          },
+          "connexions_30j": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Connexions 30J"
+          },
+          "heures_usage_30j": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heures Usage 30J"
+          },
+          "fonctionnalites_utilisees": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Fonctionnalites Utilisees"
+          },
+          "nb_integrations": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nb Integrations"
+          },
+          "derniere_connexion_jours": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Derniere Connexion Jours"
+          },
+          "tickets_support_90j": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Tickets Support 90J"
+          },
+          "delai_reponse_support_h": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delai Reponse Support H"
+          },
+          "csat": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 5.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Csat"
+          },
+          "retards_paiement_12m": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retards Paiement 12M"
+          },
+          "revenu_mensuel_recurrent_eur": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revenu Mensuel Recurrent Eur"
+          }
+        },
+        "type": "object",
+        "required": [
+          "client_id",
+          "plan",
+          "taille_entreprise",
+          "anciennete_mois",
+          "sieges_souscrits",
+          "utilisateurs_actifs",
+          "connexions_30j",
+          "fonctionnalites_utilisees",
+          "derniere_connexion_jours",
+          "tickets_support_90j"
+        ],
+        "title": "Account"
+      },
+      "AccountScore": {
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "title": "Client Id"
+          },
+          "proba_churn": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Proba Churn"
+          },
+          "a_risque": {
+            "type": "boolean",
+            "title": "A Risque"
+          },
+          "niveau": {
+            "type": "string",
+            "title": "Niveau"
+          },
+          "facteurs_principaux": {
+            "type": "string",
+            "title": "Facteurs Principaux"
+          },
+          "mrr_eur": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mrr Eur"
+          },
+          "mrr_a_risque_eur": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mrr A Risque Eur"
+          }
+        },
+        "type": "object",
+        "required": [
+          "client_id",
+          "proba_churn",
+          "a_risque",
+          "niveau",
+          "facteurs_principaux",
+          "mrr_eur",
+          "mrr_a_risque_eur"
+        ],
+        "title": "AccountScore"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ScoreRequest": {
+        "properties": {
+          "accounts": {
+            "items": {
+              "$ref": "#/components/schemas/Account"
+            },
+            "type": "array",
+            "maxItems": 1000,
+            "minItems": 1,
+            "title": "Accounts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "accounts"
+        ],
+        "title": "ScoreRequest"
+      },
+      "ScoreResponse": {
+        "properties": {
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "threshold": {
+            "type": "number",
+            "title": "Threshold"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/AccountScore"
+            },
+            "type": "array",
+            "title": "Results"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model_version",
+          "threshold",
+          "results"
+        ],
+        "title": "ScoreResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
